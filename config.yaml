@@ -21,7 +21,7 @@ menu:
   main:
     - identifier: about
       name: about
-      title: About
+      title: About 
       url: /
     - identifier: blog
       name: blog

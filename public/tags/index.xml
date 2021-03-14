@@ -1,107 +1,109 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on </title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on </description>
+    <title>Tags on codex</title>
+    <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/</link>
+    <description>Recent content in Tags on codex</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 01 Dec 2020 21:13:14 -0500</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <copyright>© {year}</copyright>
+    <lastBuildDate>Tue, 01 Dec 2020 21:13:14 -0500</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>plot</title>
-      <link>/tags/plot/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/plot/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>/tags/plot/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/plot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/r-markdown/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>/tags/r-markdown/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>regression</title>
-      <link>/tags/regression/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/regression/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>/tags/regression/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>css</title>
-      <link>/tags/css/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/css/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/css/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/css/</guid>
       <description></description>
     </item>
     
     <item>
       <title>html</title>
-      <link>/tags/html/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/html/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/html/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/html/</guid>
       <description></description>
     </item>
     
     <item>
       <title>markdown</title>
-      <link>/tags/markdown/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/markdown/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/markdown/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>math</title>
-      <link>/tags/math/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/math/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/math/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>shortcodes</title>
-      <link>/tags/shortcodes/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/shortcodes/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/shortcodes/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/shortcodes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>themes</title>
-      <link>/tags/themes/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/themes/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/themes/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/themes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hugo</title>
-      <link>/tags/hugo/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/hugo/</link>
       <pubDate>Thu, 04 Jun 2020 09:19:29 -0400</pubDate>
       
-      <guid>/tags/hugo/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cv</title>
-      <link>/tags/cv/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/cv/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/cv/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/tags/cv/</guid>
       <description></description>
     </item>
     
