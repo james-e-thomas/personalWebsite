@@ -31,5 +31,3 @@ menu:
       name: cv
       title: cv
       url: /cv/curricumul-vitae/
-
-ignoreErrors = ["error-remote-getjson"]
