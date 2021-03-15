@@ -10,10 +10,10 @@
     <lastBuildDate>Fri, 05 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/tags/math/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Math Typesetting</title>
-      <link>https://vigorous-agnesi-b6cd7a.netlify.app/blog/math-typesetting/</link>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/math-typesetting/</link>
       <pubDate>Fri, 05 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/blog/math-typesetting/</guid>
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/posts/math-typesetting/</guid>
       <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
     </item>
     

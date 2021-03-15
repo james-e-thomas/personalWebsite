@@ -23,10 +23,10 @@ menu:
       name: about
       title: About 
       url: /
-    - identifier: blog
-      name: blog
-      title: Blog
-      url: /blog
+    - identifier: posts
+      name: posts
+      title: Posts
+      url: /posts
     - identifier: cv
       name: cv
       title: cv
