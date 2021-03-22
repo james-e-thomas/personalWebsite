@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>osrmtime on codex</title>
+    <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/osrmtime/</link>
+    <description>Recent content in osrmtime on codex</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© {year}</copyright>
+    <lastBuildDate>Sun, 21 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/tags/osrmtime/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Calculating drive times in Stata using the osrmtime command</title>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</link>
+      <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</guid>
+      <description>This post walks through the (somewhat fiddly) installation and usage of the osrmtime command. It is a Stata command for calculating distances and travel times between two sets of GPS coordinates on a map.
+This is done using:
+ OpenStreetMaps for your map (which you are required to download before running the command such that everything works totally offline) the Open Source Routing Machine (&amp;ldquo;OSRM&amp;rdquo;) to determine the shortest distance between A and B  If you have the time to spare, I would read the osrmtime author guide (it&amp;rsquo;s only 7 pages), but if not, this post is self-contained.</description>
+    </item>
+    
+  </channel>
+</rss>
