@@ -1,0 +1,368 @@
+---
+title: Downloading files from the CMA website in an automated way using R
+author: ''
+date: '2021-05-03'
+slug: downloading-files-from-the-cma-website-in-an-automated-way-using-r
+categories: []
+tags:
+  - rvest
+  - scraping
+  - r
+  - cma
+---
+
+
+
+<p>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.</p>
+<p>The code uses the <a href="https://rvest.tidyverse.org/"><code>rvest</code></a> package to scrape the CMA’s website and the <code>utils</code> package to download the files.</p>
+<pre><code>rm(list = ls())
+
+library(rvest)
+library(magrittr)
+library(utils)
+
+setwd(&quot;C:\\Users\\james\\Documents\\Online Platforms Final Report and Appendices&quot;)                                         
+
+# -----------------------------------------------------------------------------
+
+# Step 1: Get HTML code
+webpage_html &lt;- read_html(&quot;https://www.gov.uk/cma-cases/online-platforms-and-digital-advertising-market-study&quot;)              
+
+# Step 2: Find relevant part of HTML code
+section_html &lt;- webpage_html %&gt;%
+  html_node(&quot;ul:nth-child(10)&quot;) %&gt;%
+  html_nodes(&quot;a&quot;)
+
+# Step 3: Find links in HTML
+links &lt;- section_html %&gt;%
+  html_attr(&quot;href&quot;)
+
+## Step 4: Extract document names from webpage text
+doc_names &lt;- section_html %&gt;%
+  html_text(&quot;href&quot;)
+doc_names &lt;- paste0(doc_names, &quot;.pdf&quot;)
+doc_names &lt;- gsub(&quot;:&quot;, &quot;&quot;, doc_names)
+
+# Step 5: Download files from links to working directory  
+for (i in seq_along(links)) {
+  download.file(links[i], doc_names[i], mode = &quot;wb&quot;)
+}</code></pre>
+<p>I explain the code below.</p>
+<div id="step-1-get-html-code" class="section level2">
+<h2>Step 1: Get HTML code</h2>
+<p>Websites are written in a language called HTML. To view the HTML of any website, you can simply right click and select ‘Inspect’ (or press <code>Ctrl</code>+<code>Shift</code>+<code>I</code>).</p>
+<p>All <a href="https://xml2.r-lib.org/reference/read_xml.html"><code>read_html()</code></a> is doing is going to the address inputted and retrieving the HTML of that webpage.</p>
+<p>The file it downloads is an XML file. You can play around with it. You will see that it is a list of length 2 (because all HTML pages are made up of two sections: a head and a body).</p>
+<pre class="r"><code>webpage_html &lt;- read_html(&quot;https://www.gov.uk/cma-cases/online-platforms-and-digital-advertising-market-study&quot;)  
+
+webpage_html</code></pre>
+<pre><code>## {html_document}
+## &lt;html lang=&quot;en&quot;&gt;
+## [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8 ...
+## [2] &lt;body&gt;\n    &lt;script&gt;document.body.className = ((document.body.className)  ...</code></pre>
+<p>The content of webpages are found in the second element of the list (i.e. in the body section).</p>
+<pre class="r"><code>xml_child(webpage_html, 2)</code></pre>
+<pre><code>## {html_node}
+## &lt;body&gt;
+##  [1] &lt;script&gt;document.body.className = ((document.body.className) ? document. ...
+##  [2] &lt;div id=&quot;global-cookie-message&quot; class=&quot;gem-c-cookie-banner govuk-clearfi ...
+##  [3] &lt;div id=&quot;skiplink-container&quot;&gt;\n      &lt;div&gt;\n        &lt;a href=&quot;#content&quot; c ...
+##  [4] &lt;header role=&quot;banner&quot; id=&quot;global-header&quot; class=&quot;&quot;&gt;&lt;div class=&quot;header-wra ...
+##  [5] &lt;div id=&quot;user-satisfaction-survey-container&quot;&gt;&lt;/div&gt;
+##  [6] &lt;div id=&quot;global-header-bar&quot;&gt;&lt;/div&gt;
+##  [7] &lt;div id=&quot;global-bar&quot; class=&quot;global-bar dont-print&quot; data-module=&quot;global-b ...
+##  [8] &lt;div id=&quot;wrapper&quot; class=&quot;direction-ltr&quot;&gt;\n\n        \n&lt;div class=&quot;gem-c- ...
+##  [9] &lt;footer class=&quot;group js-footer&quot; id=&quot;footer&quot; role=&quot;contentinfo&quot;&gt;&lt;div clas ...
+## [10] &lt;div id=&quot;global-app-error&quot; class=&quot;app-error hidden&quot;&gt;&lt;/div&gt;
+## [11] &lt;script src=&quot;https://www.gov.uk/assets/static/header-footer-only-2159177 ...
+## [12] &lt;script&gt;if (typeof window.GOVUK === &#39;undefined&#39;) document.body.className ...
+## [13] &lt;script src=&quot;/assets/government-frontend/application-ad747abfe1bc91b2a7c ...
+## [14] &lt;script type=&quot;application/ld+json&quot;&gt;\n  {\n  &quot;@context&quot;: &quot;http://schema.o ...
+## [15] &lt;script type=&quot;application/ld+json&quot;&gt;\n  {\n  &quot;@context&quot;: &quot;http://schema.o ...</code></pre>
+</div>
+<div id="step-2-find-relevant-part-of-html-code" class="section level2">
+<h2>Step 2: Find relevant part of HTML code</h2>
+<p>The next step is finding the documents we want to download within those 15 lines of code. But first let’s take a step back.</p>
+</br>
+<style>
+div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 0.5px; padding-bottom: 30px}
+</style>
+<div class="blue">
+<h3 id="html-elementsattributes-and-css-selectors">HTML elements/attributes and CSS selectors</h3>
+<p>HTML pages are made up of <strong>elements</strong>. These elements will typically include an opening tag and a closing tag. If you inspect the HTML of this text (do it!), you will see that it is a paragraph, denoted by an opening tag <code>&lt;p&gt;</code> and a closing tag <code>&lt;/p&gt;</code>.</p>
+<pre class="r"><code>&lt;p&gt;
+  HTML pages are made up of &lt;strong&gt;elements&lt;/strong&gt;. These elements will typically include an opening tag and a closing tag. If you inspect the HTML of this text (do it!), you will see that it is a paragraph, denoted by an opening tag &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; and a closing tag &lt;code&gt;&amp;lt;/p&amp;gt;&lt;/code&gt;.
+&lt;/p&gt;</code></pre>
+<p>There are many other types of elements. For example, headers (<code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code> etc..), links (<code>&lt;a&gt;</code>), lists (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>), images (<code>&lt;img&gt;</code>), dividers (<code>div</code>) and many more…</p>
+<p>Tags can have <strong>attributes</strong>. The most common attributes are <code>id</code> and <code>class</code>. These two attributes can be used for example to style the element (e.g. a particular format/colour/style can be defined for elements with a particular <code>id</code> or <code>class</code>). This is done using Cascading Style Sheets (“CSS”), a language used to define the presentation of HTML documents (HTML- content structure and semantics; CSS- content style and layout).</p>
+<p>In CSS, <strong>selectors</strong> can be used to select the HTML elements that you want to style. Similarly, they can be used to identify HTML elements that you want to scrape… The four most important selectors are (the following is taken directly from the <code>rvest</code> package’s website):</p>
+<ul>
+<li><code>p</code>: selects all <code>&lt;p&gt;</code> elements.</li>
+<li><code>.title</code>: selects all elements with <code>class</code> “title”.</li>
+<li><code>p.special</code>: selects all <code>&lt;p&gt;</code> elements with <code>class</code> “special”.</li>
+<li><code>#title</code>: selects the element with the <code>id</code> attribute that equals “title”.</li>
+</ul>
+<p>This is by no means a complete introduction to HTML, CSS and webpages, but there are plenty of resources out there. If you are interested in learning how to scrape beyond this simple CMA example, this little tutorial isn’t going to cut it! You could start with the <code>rvest</code> package’s own introduction to <a href="https://rvest.tidyverse.org/articles/rvest.html">HTML and scraping basics</a>, but even this is likely to be limited. The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">MDN Web Docs</a> produced by Mozilla (the company behind the Firefox web browser) are a good resource for getting familiar with HTML and CSS. In terms of scraping specifically though, I think the best way of learning is to work through some sort of textbook. I personally used Ryan Mitchell’s Web Scraping with Python (though if you intend to use R, maybe a different textbook would be best!).</p>
+</div>
+<p>Anyway- back to the scraping. Let’s take it line by line. <a href="https://rvest.tidyverse.org/reference/html_nodes.html"><code>html_node()</code></a> in this case looks for the first unordered list, <code>&lt;ul&gt;</code>, that is also the tenth <strong>child</strong> of its parent (an element’s children are the elements nested within it- e.g. <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are children of <code>&lt;html&gt;</code>).</p>
+<pre class="r"><code>section_html &lt;- webpage_html %&gt;%
+  html_node(&quot;ul:nth-child(10)&quot;)
+
+section_html</code></pre>
+<pre><code>## {html_node}
+## &lt;ul&gt;
+##  [1] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_4c64e01e-e52c-4643-9c5a-9f889954d767&quot;  ...
+##  [2] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_74c305e9-1fd3-41ad-aecf-142547e6b3dd&quot;  ...
+##  [3] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_351aee2b-6f3d-410e-8e22-85e67faa7a85&quot;  ...
+##  [4] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_4efe00e1-895e-44fb-ba9f-6a9f3f153857&quot;  ...
+##  [5] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_cff0b30b-3ba9-4ce6-8e51-85246ae4d92c&quot;  ...
+##  [6] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_664caa11-5507-46f1-86f4-f1c01a914d83&quot;  ...
+##  [7] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_d695ac7f-8fff-4b34-9168-d7ce82ebea32&quot;  ...
+##  [8] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_1420a80d-abeb-4c05-b657-4238b3ffbd8e&quot;  ...
+##  [9] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_fe640b1a-ca45-48fe-8ec3-241c5d4db2c7&quot;  ...
+## [10] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_a8d6b91b-e0c7-49c3-8c21-e9d6c711ddbb&quot;  ...
+## [11] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_d966df6a-95eb-4d7c-b2b1-645a15596e7e&quot;  ...
+## [12] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_30c3ea1a-13e8-418c-874d-6f897433bb7f&quot;  ...
+## [13] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_72b942db-272d-4339-a7ec-0995f70e5942&quot;  ...
+## [14] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_baad26ee-2b29-428d-b7ee-35d248b60c3b&quot;  ...
+## [15] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_01c05e86-63b2-46cc-b05c-d801f54eb172&quot;  ...
+## [16] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_98f89a40-0603-42a7-9c2c-85373964b416&quot;  ...
+## [17] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_892ae18a-5b6c-41c4-93a9-4ac7da88eb4a&quot;  ...
+## [18] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_76eb511b-d496-44a1-8746-0ecc6484b333&quot;  ...
+## [19] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_d719eab9-a706-48ab-8421-34946c976655&quot;  ...
+## [20] &lt;li&gt;\n    &lt;p&gt;&lt;span id=&quot;attachment_f08e83c9-7c34-47e0-9ec8-f31b442eb04e&quot;  ...
+## ...</code></pre>
+<p>Let’s also view the full HTML code by converting the list to character strings and concatenating them together. If you scroll to the right below, you will see the links to the pdfs and the text that appears on the CMA’s website: ‘Final report (1.7.20)’, ‘Appendix A: the legal framework (1.7.20)’, Appendix B: summary of responses to our interim report consultation (1.7.20)’ etc.</p>
+<pre class="r"><code>cat(as.character(section_html))</code></pre>
+<pre><code>## &lt;ul&gt;
+## &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_4c64e01e-e52c-4643-9c5a-9f889954d767&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fa557668fa8f5788db46efc/Final_report_Digital_ALT_TEXT.pdf&quot;&gt;Final report&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_74c305e9-1fd3-41ad-aecf-142547e6b3dd&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe494e98fa8f56aed3d5e94/Appendix_A_-_The_legal_framework_v2_-_WEB_-.pdf&quot;&gt;Appendix A: the legal framework&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_351aee2b-6f3d-410e-8e22-85e67faa7a85&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb1c5e3a6f4023c52b800b/Appendix_B_-_Summary_of_responses_to_our_consultation_v.2.pdf&quot;&gt;Appendix B: summary of responses to our interim report consultation&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_4efe00e1-895e-44fb-ba9f-6a9f3f153857&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49506e90e0712011cb4ea/Appendix_C_-_Market_Outcomes_v.12_WEB_-.pdf&quot;&gt;Appendix C: market outcomes&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_cff0b30b-3ba9-4ce6-8e51-85246ae4d92c&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe4951c8fa8f56af8e88105/Appendix_D_Profitability_of_Google_and_Facebook_non-confidential_WEB.pdf&quot;&gt;Appendix D: profitability of Google and Facebook &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_664caa11-5507-46f1-86f4-f1c01a914d83&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49531d3bf7f089e48dec9/Appendix_E_Ecosystems_v.2_WEB.pdf&quot;&gt;Appendix E: ecosystems of Google and Facebook &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_d695ac7f-8fff-4b34-9168-d7ce82ebea32&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495438fa8f56af97b1e6c/Appendix_F_-_role_of_data_in_digital_advertising_v.4_WEB.pdf&quot;&gt;Appendix F: the role of data in digital advertising &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_1420a80d-abeb-4c05-b657-4238b3ffbd8e&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49554e90e0711ffe07d05/Appendix_G_-_Tracking_and_PETS_v.16_non-confidential_WEB.pdf&quot;&gt;Appendix G: the role of tracking in digital advertising &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_fe640b1a-ca45-48fe-8ec3-241c5d4db2c7&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe4956ad3bf7f089e48deca/Appendix_H_-_search_defaults_v.6_WEB.pdf&quot;&gt;Appendix H: default positions in search&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_a8d6b91b-e0c7-49c3-8c21-e9d6c711ddbb&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe4957c8fa8f56aeff87c12/Appendix_I_-_search_quality_v.3_WEB_.pdf&quot;&gt;Appendix I: search quality and economies of scale&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_d966df6a-95eb-4d7c-b2b1-645a15596e7e&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb1dd2d3bf7f7699160dd6/Appendix_J_-_Facebook_Platform_and_API_access_v4.pdf&quot;&gt;Appendix J: Facebook Platform and API access&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_30c3ea1a-13e8-418c-874d-6f897433bb7f&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49595d3bf7f089f9998ce/Appendix_K_-_consumer_controls_over_platforms__data_collection_WEB.pdf&quot;&gt;Appendix K: consumer controls over platforms’ data collection&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_72b942db-272d-4339-a7ec-0995f70e5942&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb1e07e90e075c5d587c0b/Appendix_L_-_Overview_of_Academic_Research_and_Consumer_Surveys__v3_.pdf&quot;&gt;Appendix L: summary of research on consumers’ attitudes and behaviour&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_baad26ee-2b29-428d-b7ee-35d248b60c3b&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495c28fa8f56afaf406d4/Appendix_M_-_intermediation_in_open_display_advertising_WEB.pdf&quot;&gt;Appendix M: intermediation in open display advertising &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_01c05e86-63b2-46cc-b05c-d801f54eb172&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495d3e90e071205803985/Appendix_N__-_understanding_advertiser_demand_for_digital_advertising_WEB.pdf&quot;&gt;Appendix N: understanding advertiser demand for digital advertising&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_98f89a40-0603-42a7-9c2c-85373964b416&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495ede90e071205803986/Appendix_O_-_measurement_issues_in_digital_advertising_WEB.pdf&quot;&gt;Appendix O: measurement issues in digital advertising &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_892ae18a-5b6c-41c4-93a9-4ac7da88eb4a&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe496018fa8f56af2a85fea/Appendix_P_-_specialised_search_v.8_WEB.pdf&quot;&gt;Appendix P: specialised search&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_76eb511b-d496-44a1-8746-0ecc6484b333&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49614e90e0711ffe07d06/Appendix_Q_on_exploitation_of_market_power_in_search_and_display_v.5_Redacted_WEB.pdf&quot;&gt;Appendix Q: exploitation of market power &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_d719eab9-a706-48ab-8421-34946c976655&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49625e90e071207e10eff/Appendix_R_-_fees_in_the_adtech_stack_WEB.pdf&quot;&gt;Appendix R: fees in the adtech stack &lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_f08e83c9-7c34-47e0-9ec8-f31b442eb04e&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb22fbd3bf7f768fdcdfae/Appendix_S_-_the_relationship_between_large_digital_platforms_and_publishers.pdf&quot;&gt;Appendix S: the relationship between large digital platforms and publishers&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_b881abd1-390b-4cbb-8a36-a5b36e09ec4d&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb4d513a6f4023cf12fc8b/Appendix_T_-_Principles_for_evaluating_data_remedies.pdf&quot;&gt;Appendix T: our approach to assessing data remedies&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_44963982-2770-45e7-9a14-ce4d6a82855b&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb5fab3a6f4023d242ed4f/Appendix_U_-_The_Code_v.6.pdf&quot;&gt;Appendix U: supporting evidence for the code of conduct&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_c7e0a166-0359-4198-9a06-0fb17a3c078e&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe36a18d3bf7f08a02c87f6/Appendix_V__-__assessment_of_pro-competition_interventions_in_general_search_1.7.20.pdf&quot;&gt;Appendix V: assessment of pro-competition interventions in general search&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_87ebfa4f-e39f-49bb-b5c9-a43b816a8ff9&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe36a378fa8f56af53c5d68/Appendix_W_-_assessment_of_pro-competition_interventions_in_social_media_1.7.20.pdf&quot;&gt;Appendix W: assessment of pro-competition interventions in social media&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_f7d19d8d-9bcf-4724-a724-de1bf489962e&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe36a658fa8f56af0ac66f2/Appendix_X__-__assessment_of_pro-competition_interventions_to_enable_consumer_choice_over_personalised_advertising_1.7.20.pdf&quot;&gt;Appendix X: assessment of pro-competition interventions to enable consumer choice over personalised advertising&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_6f492f61-b712-46a3-b9e0-f19ce93c2ce1&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe36ab9d3bf7f0898e0776c/Appendix_Y_-_choice_architecture_and_Fairness_by_Design_1.7.20.pdf&quot;&gt;Appendix Y: choice architecture and Fairness by Design&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_5fd6ea5e-5393-4e5a-b7e3-bd23319cf204&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efc3f7ae90e075c5aeb9947/Appendix_Z_-_Data_related_interventions_in_digital_advertising_markets.pdf&quot;&gt;Appendix Z: assessment of potential data-related interventions in digital advertising markets&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_26c02dfe-e79f-43d7-8417-08ba306ab6da&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efc3f5de90e075c4fa0ac0a/Appendix_ZA_-_Separation_remedies_AD_TECH_SEPARATION_ONLY_v.6.pdf&quot;&gt;Appendix ZA: assessment of potential pro-competition interventions to address market power in open display advertising&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;&lt;span id=&quot;attachment_a8a33a66-c626-4454-93b5-a483c9688c59&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efc5cad3a6f4023d3b7a866/Final_Report_Glossary.pdf&quot;&gt;Glossary&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+## &lt;span id=&quot;attachment_6330a610-8aad-427a-8456-95e94c89bdd6&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb3fded3bf7f769d2695af/Digital_Advertising_Services_Research.pdf&quot;&gt;Qualitative research report prepared by Jigsaw Research&lt;/a&gt;&lt;/span&gt; (1.7.20)&lt;/li&gt;
+##   &lt;li&gt;
+##     &lt;p&gt;Press release: &lt;a href=&quot;https://www.gov.uk/government/news/new-regime-needed-to-take-on-tech-giants&quot;&gt;New regime needed to take on tech giants&lt;/a&gt; (1.7.20)&lt;/p&gt;
+##   &lt;/li&gt;
+##   &lt;li&gt;
+## &lt;span id=&quot;attachment_d11e0063-9cea-4c6a-b5fc-bba0e93b0dfa&quot; class=&quot;attachment-inline&quot;&gt;&lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5f6df85be90e0747c22710b2/CMA_Online_Platforms_and_Digital_Advertising_market_study_presentation__web_.pdf&quot;&gt;Presentation slides: summary of final report&lt;/a&gt;&lt;/span&gt; (1.10.20)&lt;/li&gt;
+## &lt;/ul&gt;</code></pre>
+<p>It might be worth taking another step back though. How do you go about finding the CSS selector for a particular section you might want to scrape? <code>ul:nth-child(10)</code> is somewhat specific and doesn’t appear directly in the HTML code anywhere. Although this is true, it is possible to get the information from inspecting the webpage (<code>Ctrl</code>+<code>Shift</code>+<code>I</code>), clicking on the specific part of the webpage you are interested in and working out yourself how to uniquely identify it. In the case of downloading files from the CMA website, <code>ul:nth-child(x)</code> will usually do the job (provided they don’t change the structure of their webpages). For scraping more generally, there will be other ways of identifying the part(s) of the webpage that you want (i.e. not necessarily by referencing the element and whether it is the nth child- see for example the four bullet points in the ‘HTML elements/attributes and CSS selectors’ section).</p>
+<p>Although you can work it out yourself, a much simpler way to find the right CSS selector for basic scraping tasks is to use a helpful tool called CSS SelectorGadget.</p>
+</br>
+<style>
+div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 0.5px; padding-bottom: 30px}
+</style>
+<div class="blue">
+<h3 id="css-selectorgadget">CSS SelectorGadget</h3>
+<p>SelectorGadget is a tool that helps you find the relevant CSS selector for the part of the webpage you want to scrape. You can either save the bookmark at <a href="https://selectorgadget.com/">selectorgadget.com</a> or download the Chrome extension. Once you launch it, all you need to do is click on the webpage element you want to scrape. It will turn green and the tool will generate a minimal CSS selector for the element (and will highlight in yellow everything else that is matched by the selector). If the CSS selector also matches elements you are not interested in, simply click on elements you don’t want to scrape. They will turn red and the tool will generate a more specific CSS selector (this is how we end up with something like <code>ul:nth-child(10)</code>).</p>
+</div>
+<p>Back to the code- ultimately, we want a list of links to the various pdfs. Links are denoted by the <code>&lt;a&gt;</code> tag. We thus search for this tag within the HTML code above.</p>
+<pre class="r"><code>section_html &lt;- section_html %&gt;%
+  html_nodes(&quot;a&quot;)
+
+section_html</code></pre>
+<pre><code>## {xml_nodeset (32)}
+##  [1] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fa557668fa8f578 ...
+##  [2] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe494e98fa8f56a ...
+##  [3] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb1c5e3a6f4023 ...
+##  [4] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49506e90e0712 ...
+##  [5] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe4951c8fa8f56a ...
+##  [6] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49531d3bf7f08 ...
+##  [7] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495438fa8f56a ...
+##  [8] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49554e90e0711 ...
+##  [9] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe4956ad3bf7f08 ...
+## [10] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe4957c8fa8f56a ...
+## [11] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb1dd2d3bf7f76 ...
+## [12] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49595d3bf7f08 ...
+## [13] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb1e07e90e075c ...
+## [14] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495c28fa8f56a ...
+## [15] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495d3e90e0712 ...
+## [16] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe495ede90e0712 ...
+## [17] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe496018fa8f56a ...
+## [18] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49614e90e0711 ...
+## [19] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5fe49625e90e0712 ...
+## [20] &lt;a href=&quot;https://assets.publishing.service.gov.uk/media/5efb22fbd3bf7f76 ...
+## ...</code></pre>
+</div>
+<div id="step-3-find-links-in-html" class="section level2">
+<h2>Step 3: Find links in HTML</h2>
+<p>If you look at the code above, you will notice that the value of each link’s <code>href</code> attribute is an address to a pdf. These can all be extracted using <a href="https://rvest.tidyverse.org/reference/html_attr.html"><code>html_attr()</code></a>.</p>
+<pre class="r"><code>links &lt;- section_html %&gt;%
+  html_attr(&quot;href&quot;)
+
+links</code></pre>
+<pre><code>##  [1] &quot;https://assets.publishing.service.gov.uk/media/5fa557668fa8f5788db46efc/Final_report_Digital_ALT_TEXT.pdf&quot;                                                                                            
+##  [2] &quot;https://assets.publishing.service.gov.uk/media/5fe494e98fa8f56aed3d5e94/Appendix_A_-_The_legal_framework_v2_-_WEB_-.pdf&quot;                                                                              
+##  [3] &quot;https://assets.publishing.service.gov.uk/media/5efb1c5e3a6f4023c52b800b/Appendix_B_-_Summary_of_responses_to_our_consultation_v.2.pdf&quot;                                                                
+##  [4] &quot;https://assets.publishing.service.gov.uk/media/5fe49506e90e0712011cb4ea/Appendix_C_-_Market_Outcomes_v.12_WEB_-.pdf&quot;                                                                                  
+##  [5] &quot;https://assets.publishing.service.gov.uk/media/5fe4951c8fa8f56af8e88105/Appendix_D_Profitability_of_Google_and_Facebook_non-confidential_WEB.pdf&quot;                                                     
+##  [6] &quot;https://assets.publishing.service.gov.uk/media/5fe49531d3bf7f089e48dec9/Appendix_E_Ecosystems_v.2_WEB.pdf&quot;                                                                                            
+##  [7] &quot;https://assets.publishing.service.gov.uk/media/5fe495438fa8f56af97b1e6c/Appendix_F_-_role_of_data_in_digital_advertising_v.4_WEB.pdf&quot;                                                                 
+##  [8] &quot;https://assets.publishing.service.gov.uk/media/5fe49554e90e0711ffe07d05/Appendix_G_-_Tracking_and_PETS_v.16_non-confidential_WEB.pdf&quot;                                                                 
+##  [9] &quot;https://assets.publishing.service.gov.uk/media/5fe4956ad3bf7f089e48deca/Appendix_H_-_search_defaults_v.6_WEB.pdf&quot;                                                                                     
+## [10] &quot;https://assets.publishing.service.gov.uk/media/5fe4957c8fa8f56aeff87c12/Appendix_I_-_search_quality_v.3_WEB_.pdf&quot;                                                                                     
+## [11] &quot;https://assets.publishing.service.gov.uk/media/5efb1dd2d3bf7f7699160dd6/Appendix_J_-_Facebook_Platform_and_API_access_v4.pdf&quot;                                                                         
+## [12] &quot;https://assets.publishing.service.gov.uk/media/5fe49595d3bf7f089f9998ce/Appendix_K_-_consumer_controls_over_platforms__data_collection_WEB.pdf&quot;                                                       
+## [13] &quot;https://assets.publishing.service.gov.uk/media/5efb1e07e90e075c5d587c0b/Appendix_L_-_Overview_of_Academic_Research_and_Consumer_Surveys__v3_.pdf&quot;                                                     
+## [14] &quot;https://assets.publishing.service.gov.uk/media/5fe495c28fa8f56afaf406d4/Appendix_M_-_intermediation_in_open_display_advertising_WEB.pdf&quot;                                                              
+## [15] &quot;https://assets.publishing.service.gov.uk/media/5fe495d3e90e071205803985/Appendix_N__-_understanding_advertiser_demand_for_digital_advertising_WEB.pdf&quot;                                                
+## [16] &quot;https://assets.publishing.service.gov.uk/media/5fe495ede90e071205803986/Appendix_O_-_measurement_issues_in_digital_advertising_WEB.pdf&quot;                                                               
+## [17] &quot;https://assets.publishing.service.gov.uk/media/5fe496018fa8f56af2a85fea/Appendix_P_-_specialised_search_v.8_WEB.pdf&quot;                                                                                  
+## [18] &quot;https://assets.publishing.service.gov.uk/media/5fe49614e90e0711ffe07d06/Appendix_Q_on_exploitation_of_market_power_in_search_and_display_v.5_Redacted_WEB.pdf&quot;                                        
+## [19] &quot;https://assets.publishing.service.gov.uk/media/5fe49625e90e071207e10eff/Appendix_R_-_fees_in_the_adtech_stack_WEB.pdf&quot;                                                                                
+## [20] &quot;https://assets.publishing.service.gov.uk/media/5efb22fbd3bf7f768fdcdfae/Appendix_S_-_the_relationship_between_large_digital_platforms_and_publishers.pdf&quot;                                             
+## [21] &quot;https://assets.publishing.service.gov.uk/media/5efb4d513a6f4023cf12fc8b/Appendix_T_-_Principles_for_evaluating_data_remedies.pdf&quot;                                                                     
+## [22] &quot;https://assets.publishing.service.gov.uk/media/5efb5fab3a6f4023d242ed4f/Appendix_U_-_The_Code_v.6.pdf&quot;                                                                                                
+## [23] &quot;https://assets.publishing.service.gov.uk/media/5fe36a18d3bf7f08a02c87f6/Appendix_V__-__assessment_of_pro-competition_interventions_in_general_search_1.7.20.pdf&quot;                                      
+## [24] &quot;https://assets.publishing.service.gov.uk/media/5fe36a378fa8f56af53c5d68/Appendix_W_-_assessment_of_pro-competition_interventions_in_social_media_1.7.20.pdf&quot;                                          
+## [25] &quot;https://assets.publishing.service.gov.uk/media/5fe36a658fa8f56af0ac66f2/Appendix_X__-__assessment_of_pro-competition_interventions_to_enable_consumer_choice_over_personalised_advertising_1.7.20.pdf&quot;
+## [26] &quot;https://assets.publishing.service.gov.uk/media/5fe36ab9d3bf7f0898e0776c/Appendix_Y_-_choice_architecture_and_Fairness_by_Design_1.7.20.pdf&quot;                                                           
+## [27] &quot;https://assets.publishing.service.gov.uk/media/5efc3f7ae90e075c5aeb9947/Appendix_Z_-_Data_related_interventions_in_digital_advertising_markets.pdf&quot;                                                   
+## [28] &quot;https://assets.publishing.service.gov.uk/media/5efc3f5de90e075c4fa0ac0a/Appendix_ZA_-_Separation_remedies_AD_TECH_SEPARATION_ONLY_v.6.pdf&quot;                                                            
+## [29] &quot;https://assets.publishing.service.gov.uk/media/5efc5cad3a6f4023d3b7a866/Final_Report_Glossary.pdf&quot;                                                                                                    
+## [30] &quot;https://assets.publishing.service.gov.uk/media/5efb3fded3bf7f769d2695af/Digital_Advertising_Services_Research.pdf&quot;                                                                                    
+## [31] &quot;https://www.gov.uk/government/news/new-regime-needed-to-take-on-tech-giants&quot;                                                                                                                          
+## [32] &quot;https://assets.publishing.service.gov.uk/media/5f6df85be90e0747c22710b2/CMA_Online_Platforms_and_Digital_Advertising_market_study_presentation__web_.pdf&quot;</code></pre>
+</div>
+<div id="step-4-extract-document-names-from-webpage-text" class="section level2">
+<h2>Step 4: Extract document names from webpage text</h2>
+<p>In order to name the documents, we can use the text from the CMA’s website. This can be extracted using <a href="https://rvest.tidyverse.org/reference/html_text.html"><code>html_text()</code></a>. We then append the “.pdf” file extension and remove the colon (which isn’t a valid character for a file name).</p>
+<pre class="r"><code>doc_names &lt;- section_html %&gt;%
+  html_text(&quot;href&quot;)
+doc_names &lt;- paste0(doc_names, &quot;.pdf&quot;)
+doc_names &lt;- gsub(&quot;:&quot;, &quot;&quot;, doc_names)
+
+doc_names</code></pre>
+<pre><code>##  [1] &quot;Final report.pdf&quot;                                                                                                         
+##  [2] &quot;Appendix A the legal framework.pdf&quot;                                                                                       
+##  [3] &quot;Appendix B summary of responses to our interim report consultation.pdf&quot;                                                   
+##  [4] &quot;Appendix C market outcomes.pdf&quot;                                                                                           
+##  [5] &quot;Appendix D profitability of Google and Facebook .pdf&quot;                                                                     
+##  [6] &quot;Appendix E ecosystems of Google and Facebook .pdf&quot;                                                                        
+##  [7] &quot;Appendix F the role of data in digital advertising .pdf&quot;                                                                  
+##  [8] &quot;Appendix G the role of tracking in digital advertising .pdf&quot;                                                              
+##  [9] &quot;Appendix H default positions in search.pdf&quot;                                                                               
+## [10] &quot;Appendix I search quality and economies of scale.pdf&quot;                                                                     
+## [11] &quot;Appendix J Facebook Platform and API access.pdf&quot;                                                                          
+## [12] &quot;Appendix K consumer controls over platforms’ data collection.pdf&quot;                                                         
+## [13] &quot;Appendix L summary of research on consumers’ attitudes and behaviour.pdf&quot;                                                 
+## [14] &quot;Appendix M intermediation in open display advertising .pdf&quot;                                                               
+## [15] &quot;Appendix N understanding advertiser demand for digital advertising.pdf&quot;                                                   
+## [16] &quot;Appendix O measurement issues in digital advertising .pdf&quot;                                                                
+## [17] &quot;Appendix P specialised search.pdf&quot;                                                                                        
+## [18] &quot;Appendix Q exploitation of market power .pdf&quot;                                                                             
+## [19] &quot;Appendix R fees in the adtech stack .pdf&quot;                                                                                 
+## [20] &quot;Appendix S the relationship between large digital platforms and publishers.pdf&quot;                                           
+## [21] &quot;Appendix T our approach to assessing data remedies.pdf&quot;                                                                   
+## [22] &quot;Appendix U supporting evidence for the code of conduct.pdf&quot;                                                               
+## [23] &quot;Appendix V assessment of pro-competition interventions in general search.pdf&quot;                                             
+## [24] &quot;Appendix W assessment of pro-competition interventions in social media.pdf&quot;                                               
+## [25] &quot;Appendix X assessment of pro-competition interventions to enable consumer choice over personalised advertising.pdf&quot;       
+## [26] &quot;Appendix Y choice architecture and Fairness by Design.pdf&quot;                                                                
+## [27] &quot;Appendix Z assessment of potential data-related interventions in digital advertising markets.pdf&quot;                         
+## [28] &quot;Appendix ZA assessment of potential pro-competition interventions to address market power in open display advertising.pdf&quot;
+## [29] &quot;Glossary.pdf&quot;                                                                                                             
+## [30] &quot;Qualitative research report prepared by Jigsaw Research.pdf&quot;                                                              
+## [31] &quot;New regime needed to take on tech giants.pdf&quot;                                                                             
+## [32] &quot;Presentation slides summary of final report.pdf&quot;</code></pre>
+</div>
+<div id="step-5-download-files-from-links-to-working-directory" class="section level2">
+<h2>Step 5: Download files from links to working directory</h2>
+<p>The final step is simply to download all the files using <code>download.file()</code> from the <code>utils</code> package. The first argument is the url to download from (Step 3) and the second is the name you want to give the file (Step 4). Remember to set your working directory up front, as that is where the documents will get saved.</p>
+<pre><code>for (i in seq_along(links)) {
+  download.file(links[i], doc_names[i], mode = &quot;wb&quot;)
+}</code></pre>
+</div>
+<div id="final-remarks" class="section level2">
+<h2>Final remarks</h2>
+<p>That should be enough information to run and understand the code. One thing to bear in mind though is that webpages get edited. As such, the CSS selector that identifies what you want one day may not do so the next. For example, if the CMA adds another set of pdfs to the case page, <code>ul:nth-child(10)</code> will no longer be the right CSS selector. Rather, it might now be <code>ul:nth-child(11)</code>.</p>
+<p>And one final point. The code above is not actually my original code. It has been amended slightly to download the Final Report and all the various appendices of the CMA’s <a href="https://www.gov.uk/cma-cases/online-platforms-and-digital-advertising-market-study">Market Study into Online Platforms and Digital Advertising</a>. To amend the code to download a different set of documents, only two lines have to be tweaked:</p>
+<ul>
+<li>The link to the CMA’s case page (the first line in step 1)</li>
+<li>The particular section of the case page (the second line of step 2)</li>
+</ul>
+</div>
