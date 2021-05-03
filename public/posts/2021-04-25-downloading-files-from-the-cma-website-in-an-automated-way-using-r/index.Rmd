@@ -7,6 +7,8 @@ categories: []
 tags: [rvest, scraping, r, cma]
 description: ''
 keywords: [rvest, scraping, r, cma]
+output:
+  blogdown::html_page
 ---
 
 This post is slightly specific to my work. The Competition and Markets Authority ("CMA") will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.

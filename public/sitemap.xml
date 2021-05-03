@@ -2,48 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/cma/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/r/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/rvest/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/scraping/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/</loc>
-    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</loc>
+    <loc>https://jamesthomas.uk/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/osrmtime/</loc>
+    <loc>https://jamesthomas.uk/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/stata/</loc>
+    <loc>https://jamesthomas.uk/tags/osrmtime/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/cv/curricumul-vitae/</loc>
+    <loc>https://jamesthomas.uk/posts/</loc>
+    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/stata/</loc>
+    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/</loc>
+    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/cv/curricumul-vitae/</loc>
     <lastmod>2020-03-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/cv/</loc>
+    <loc>https://jamesthomas.uk/tags/cv/</loc>
     <lastmod>2020-03-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/cv/</loc>
+    <loc>https://jamesthomas.uk/cv/</loc>
     <lastmod>2020-03-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/categories/</loc>
+    <loc>https://jamesthomas.uk/categories/</loc>
   </url>
 </urlset>

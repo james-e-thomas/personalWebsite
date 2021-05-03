@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>codex</title>
-    <link>https://vigorous-agnesi-b6cd7a.netlify.app/</link>
-    <description>Recent content on codex</description>
+    <title>James Thomas</title>
+    <link>https://jamesthomas.uk/</link>
+    <description>Recent content on James Thomas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© {year}</copyright>
-    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Downloading files from the CMA website in an automated way using R</title>
-      <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</link>
-      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</guid>
-      <description>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.
-The code uses the rvest package to scrape the CMA’s website and the utils package to download the files.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 21 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://jamesthomas.uk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Calculating drive times in Stata using the osrmtime command</title>
-      <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</link>
+      <link>https://jamesthomas.uk/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</link>
       <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</guid>
+      <guid>https://jamesthomas.uk/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</guid>
       <description>This post walks through the (somewhat fiddly) installation and usage of the osrmtime command. It is a Stata command for calculating distances and travel times between two sets of GPS coordinates on a map.
 This is done using:
  OpenStreetMaps for your map (which you are required to download before running the command such that everything works totally offline) the Open Source Routing Machine (&amp;ldquo;OSRM&amp;rdquo;) to determine the shortest distance between A and B  If you have the time to spare, I would read the osrmtime author guide (it&amp;rsquo;s only 7 pages), but if not, this post is self-contained.</description>
@@ -31,10 +21,10 @@ This is done using:
     
     <item>
       <title>Curriculum Vitae</title>
-      <link>https://vigorous-agnesi-b6cd7a.netlify.app/cv/curricumul-vitae/</link>
+      <link>https://jamesthomas.uk/cv/curricumul-vitae/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/cv/curricumul-vitae/</guid>
+      <guid>https://jamesthomas.uk/cv/curricumul-vitae/</guid>
       <description>James Thomas Experience NERA Economic Consulting, Research Officer, Oct 2019-Present (1 year, 5 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
 During my first year at NERA, I spent a lot of time working on a market investigation before the Competition and Markets Authority (&amp;ldquo;CMA&amp;rdquo;).</description>
     </item>
