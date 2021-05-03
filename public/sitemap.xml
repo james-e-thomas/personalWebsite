@@ -3,7 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://vigorous-agnesi-b6cd7a.netlify.app/</loc>
-    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/cma/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/r/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/rvest/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/scraping/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/</loc>
+    <lastmod>2021-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
@@ -11,13 +32,7 @@
     <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/osrmtime/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/posts/</loc>
-    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/stata/</loc>
-    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vigorous-agnesi-b6cd7a.netlify.app/tags/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vigorous-agnesi-b6cd7a.netlify.app/cv/curricumul-vitae/</loc>

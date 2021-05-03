@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© {year}</copyright>
-    <lastBuildDate>Sun, 21 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Downloading files from the CMA website in an automated way using R</title>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</guid>
+      <description>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.
+The code uses the rvest package to scrape the CMA’s website and the utils package to download the files.</description>
+    </item>
+    
     <item>
       <title>Calculating drive times in Stata using the osrmtime command</title>
       <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</link>
@@ -25,7 +35,7 @@ This is done using:
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
       
       <guid>https://vigorous-agnesi-b6cd7a.netlify.app/cv/curricumul-vitae/</guid>
-      <description>James Thomas Experience NERA Economic Consulting, Research Officer, Oct 2019-Present (1 year, 5 months) Currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. Experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
+      <description>James Thomas Experience NERA Economic Consulting, Research Officer, Oct 2019-Present (1 year, 5 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
 During my first year at NERA, I spent a lot of time working on a market investigation before the Competition and Markets Authority (&amp;ldquo;CMA&amp;rdquo;).</description>
     </item>
     

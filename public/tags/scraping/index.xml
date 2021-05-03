@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scraping on codex</title>
+    <link>https://vigorous-agnesi-b6cd7a.netlify.app/tags/scraping/</link>
+    <description>Recent content in scraping on codex</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© {year}</copyright>
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vigorous-agnesi-b6cd7a.netlify.app/tags/scraping/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Downloading files from the CMA website in an automated way using R</title>
+      <link>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://vigorous-agnesi-b6cd7a.netlify.app/posts/2021-04-25-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</guid>
+      <description>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.
+The code uses the rvest package to scrape the CMA’s website and the utils package to download the files.</description>
+    </item>
+    
+  </channel>
+</rss>
