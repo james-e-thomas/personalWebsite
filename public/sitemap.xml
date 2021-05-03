@@ -3,7 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jamesthomas.uk/</loc>
-    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/cma/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/posts/2021-05-03-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/posts/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/r/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/rvest/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/scraping/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jamesthomas.uk/tags/</loc>
+    <lastmod>2021-05-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jamesthomas.uk/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
@@ -11,13 +32,7 @@
     <loc>https://jamesthomas.uk/tags/osrmtime/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://jamesthomas.uk/posts/</loc>
-    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://jamesthomas.uk/tags/stata/</loc>
-    <lastmod>2021-03-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://jamesthomas.uk/tags/</loc>
     <lastmod>2021-03-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://jamesthomas.uk/cv/curricumul-vitae/</loc>

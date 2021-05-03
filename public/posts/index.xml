@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© {year}</copyright>
-    <lastBuildDate>Sun, 21 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://jamesthomas.uk/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://jamesthomas.uk/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Downloading files from the CMA website in an automated way using R</title>
+      <link>https://jamesthomas.uk/posts/2021-05-03-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</link>
+      <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jamesthomas.uk/posts/2021-05-03-downloading-files-from-the-cma-website-in-an-automated-way-using-r/</guid>
+      <description>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.
+The code uses the rvest package to scrape the CMA’s website and the utils package to download the files.</description>
+    </item>
+    
     <item>
       <title>Calculating drive times in Stata using the osrmtime command</title>
       <link>https://jamesthomas.uk/posts/calculating-drive-times-in-stata-using-the-osrmtime-command/</link>

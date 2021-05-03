@@ -2,9 +2,9 @@
 theme = "hugo-theme-codex" 
 
 # Override these settings with your own
-title = "codex"
+title = "James Thomas"
 languageCode = "en-us"
-baseURL = "https://vigorous-agnesi-b6cd7a.netlify.app/"
+baseURL = "https://jamesthomas.uk/"
 copyright = "© {year}"
 ignoreErrors = ["error-remote-getjson"]
 
@@ -57,9 +57,9 @@ ignoreErrors = ["error-remote-getjson"]
 
 # Controls the navigation
 [[menu.main]]
-  identifier = "about"
-  name = "about"
-  title = "About"
+  identifier = "home"
+  name = "home"
+  title = "Home"
   url = "/"
   weight = 1
 
