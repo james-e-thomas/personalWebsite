@@ -1,7 +1,7 @@
 theme: hugo-theme-codex
 title: codex
 languageCode: en-us
-baseURL: https://example.org/
+baseURL: https://jamesthomas.uk/
 copyright: © {year}
 params:
   dateFormat: Jan 2 2006
