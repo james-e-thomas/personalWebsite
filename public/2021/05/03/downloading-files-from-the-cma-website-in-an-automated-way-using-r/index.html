@@ -77,9 +77,12 @@
       
 
 
+<style>
+div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 1.5em; padding-right: 1em; padding-top: 0.25em; padding-bottom: 0.5em}
+</style>
 <p>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.</p>
 <p>The code uses the <a href="https://rvest.tidyverse.org/"><code>rvest</code></a> package to scrape the CMA’s website and the <code>utils</code> package to download the files.</p>
-<pre><code>rm(list = ls())
+<pre class="r"><code>rm(list = ls())
 
 library(rvest)
 library(magrittr)
@@ -138,19 +141,15 @@ webpage_html</code></pre>
 ##  [8] &lt;div id=&quot;wrapper&quot; class=&quot;direction-ltr&quot;&gt;\n\n        \n&lt;div class=&quot;gem-c- ...
 ##  [9] &lt;footer class=&quot;group js-footer&quot; id=&quot;footer&quot; role=&quot;contentinfo&quot;&gt;&lt;div clas ...
 ## [10] &lt;div id=&quot;global-app-error&quot; class=&quot;app-error hidden&quot;&gt;&lt;/div&gt;
-## [11] &lt;script src=&quot;https://www.gov.uk/assets/static/header-footer-only-2159177 ...
+## [11] &lt;script src=&quot;https://www.gov.uk/assets/static/header-footer-only-5d67119 ...
 ## [12] &lt;script&gt;if (typeof window.GOVUK === &#39;undefined&#39;) document.body.className ...
-## [13] &lt;script src=&quot;/assets/government-frontend/application-ad747abfe1bc91b2a7c ...
+## [13] &lt;script src=&quot;/assets/government-frontend/application-5d410b4061dead98305 ...
 ## [14] &lt;script type=&quot;application/ld+json&quot;&gt;\n  {\n  &quot;@context&quot;: &quot;http://schema.o ...
 ## [15] &lt;script type=&quot;application/ld+json&quot;&gt;\n  {\n  &quot;@context&quot;: &quot;http://schema.o ...</code></pre>
 </div>
 <div id="step-2-find-relevant-part-of-html-code" class="section level2">
 <h2>Step 2: Find relevant part of HTML code</h2>
 <p>The next step is finding the documents we want to download within those 15 lines of code. But first let’s take a step back.</p>
-</br>
-<style>
-div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 0.5px; padding-bottom: 30px}
-</style>
 <div class="blue">
 <h3 id="html-elementsattributes-and-css-selectors">HTML elements/attributes and CSS selectors</h3>
 <p>HTML pages are made up of <strong>elements</strong>. These elements will typically include an opening tag and a closing tag. If you inspect the HTML of this text (do it!), you will see that it is a paragraph, denoted by an opening tag <code>&lt;p&gt;</code> and a closing tag <code>&lt;/p&gt;</code>.</p>
@@ -296,10 +295,6 @@ section_html</code></pre>
 ## &lt;/ul&gt;</code></pre>
 <p>It might be worth taking another step back though. How do you go about finding the CSS selector for a particular section you might want to scrape? <code>ul:nth-child(10)</code> is somewhat specific and doesn’t appear directly in the HTML code anywhere. Although this is true, it is possible to get the information from inspecting the webpage (<code>Ctrl</code>+<code>Shift</code>+<code>I</code>), clicking on the specific part of the webpage you are interested in and working out yourself how to uniquely identify it. In the case of downloading files from the CMA website, <code>ul:nth-child(x)</code> will usually do the job (provided they don’t change the structure of their webpages). For scraping more generally, there will be other ways of identifying the part(s) of the webpage that you want (i.e. not necessarily by referencing the element and whether it is the nth child- see for example the four bullet points in the ‘HTML elements/attributes and CSS selectors’ section).</p>
 <p>Although you can work it out yourself, a much simpler way to find the right CSS selector for basic scraping tasks is to use a helpful tool called CSS SelectorGadget.</p>
-</br>
-<style>
-div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 0.5px; padding-bottom: 30px}
-</style>
 <div class="blue">
 <h3 id="css-selectorgadget">CSS SelectorGadget</h3>
 <p>SelectorGadget is a tool that helps you find the relevant CSS selector for the part of the webpage you want to scrape. You can either save the bookmark at <a href="https://selectorgadget.com/">selectorgadget.com</a> or download the Chrome extension. Once you launch it, all you need to do is click on the webpage element you want to scrape. It will turn green and the tool will generate a minimal CSS selector for the element (and will highlight in yellow everything else that is matched by the selector). If the CSS selector also matches elements you are not interested in, simply click on elements you don’t want to scrape. They will turn red and the tool will generate a more specific CSS selector (this is how we end up with something like <code>ul:nth-child(10)</code>).</p>

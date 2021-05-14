@@ -13,8 +13,7 @@
       <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
       
       <guid>/2021/05/03/downloading-files-from-the-cma-website-in-an-automated-way-using-r/</guid>
-      <description>This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.
-The code uses the rvest package to scrape the CMA’s website and the utils package to download the files.</description>
+      <description>div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 1.5em; padding-right: 1em; padding-top: 0.25em; padding-bottom: 0.5em}This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.</description>
     </item>
     
     <item>
@@ -44,7 +43,7 @@ This is done using:
       
       <guid>/cv/</guid>
       <description>13/05/2021
-Experience div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 30px; padding-bottom: 20px}NERA Economic Consulting, Research Officer Oct 2019-Present, (1 year, 7 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
+Experience div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 30px; padding-right: 20px; padding-top: 30px; padding-bottom: 20px}NERA Economic Consulting, Research Officer Oct 2019-Present, (1 year, 7 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
 During my first year at NERA, I spent a lot of time working on a market investigation before the Competition and Markets Authority (&amp;ldquo;CMA&amp;rdquo;).</description>
     </item>
     
