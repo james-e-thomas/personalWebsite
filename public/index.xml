@@ -33,7 +33,8 @@ This is done using:
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+      <description>13/05/2021 I am currently working in NERA Economic Consulting&amp;rsquo;s Antitrust and Competition Practice in London. I have worked on a variety of interesting competition cases across a range of industries and jurisdictions (see my CV for more detail).
+This site is mainly a place for me to keep track of various bits I have worked on and may want to look back on at some point (or share with others when potentially helpful).</description>
     </item>
     
     <item>
@@ -42,8 +43,7 @@ This is done using:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/cv/</guid>
-      <description>div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 30px; padding-right: 20px; padding-top: 30px; padding-bottom: 20px}13/05/2021
-Experience NERA Economic Consulting, Research Officer Oct 2019-Present, (1 year, 7 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
+      <description>div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 30px; padding-right: 20px; padding-top: 30px; padding-bottom: 20px}13/05/2021 Experience NERA Economic Consulting, Research Officer Oct 2019-Present, (1 year, 7 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
 During my first year at NERA, I spent a lot of time working on a market investigation before the Competition and Markets Authority (&amp;ldquo;CMA&amp;rdquo;).</description>
     </item>
     
