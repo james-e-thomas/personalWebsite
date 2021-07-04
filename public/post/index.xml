@@ -6,7 +6,18 @@
     <description>Recent content in Posts on James Thomas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A visual history of the CMA&#39;s market studies and investigations</title>
+      <link>/2021/07/04/a-visual-history-of-the-cmas-market-studies-and-investigations/</link>
+      <pubDate>Sun, 04 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/07/04/a-visual-history-of-the-cmas-market-studies-and-investigations/</guid>
+      <description>Disclaimer: the figure will not look good on mobiles/small screens.
+The Competition and Markets Authority (“CMA”) carries out market studies and investigations to make sure that particular markets are operating well.
+Using data from the CMA’s website, I have compiled the figure below. It shows all the ‘markets’ cases listed on the website (aside from one which did not appear to have an obvious start date).</description>
+    </item>
+    
     <item>
       <title>Downloading files from the CMA website in an automated way using R</title>
       <link>/2021/05/03/downloading-files-from-the-cma-website-in-an-automated-way-using-r/</link>
