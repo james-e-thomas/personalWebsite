@@ -6,7 +6,18 @@
     <description>Recent content in Posts on James Thomas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Regular expressions in Stata cheat sheet</title>
+      <link>/2021/07/24/regular-expressions-in-stata-cheat-sheet/</link>
+      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/07/24/regular-expressions-in-stata-cheat-sheet/</guid>
+      <description>The cheat sheet below is based off this great cheat sheet for regular expressions in R by Ian Kopacka.
+This is not supposed to be used as an introduction to regular expressions (have a look at the relevant help files and some of the materials shared below for this).
+This is also not a complete set of anchors, characters etc for matching, but those shown should be sufficient for most tasks (certainly for what I do at least!</description>
+    </item>
+    
     <item>
       <title>A visual history of the CMA&#39;s market studies and investigations</title>
       <link>/2021/07/04/a-visual-history-of-the-cmas-market-studies-and-investigations/</link>
