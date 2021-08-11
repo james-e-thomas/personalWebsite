@@ -3,10 +3,20 @@ date: "2021-13-14T21:48:51-07:00"
 title: Curriculum Vitae
 ---
 
-# James Thomas
+<style>
+div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 30px; padding-right: 20px; padding-top: 30px; padding-bottom: 20px}
+</style>
+
+##### 13/05/2021
 
 ## Experience
-### NERA Economic Consulting, Research Officer, Oct 2019-Present *(1 year, 5 months)*
+
+<div class = "blue">
+
+<img src="/./cv_files/NERA_Economic_Consulting_Logo.png" alt="" width="199.210px" height="65px"/>
+
+### NERA Economic Consulting, Research Officer 
+##### Oct 2019-Present, *(1 year, 7 months)*
 
 I am currently working in NERA's Antitrust and Competition Practice in London. 
 My experience includes working on a variety of **market investigation**, **merger**, 
@@ -14,15 +24,24 @@ My experience includes working on a variety of **market investigation**, **merge
 
 During my first year at NERA, I spent a lot of time working on a market investigation before the Competition and Markets Authority ("CMA"). This involved assisting the client in responding to Requests for Information, Working Papers and the Provisional Decision Report. 
 
-In particular, I worked with other members of the Competition team on responding to the CMA's **economic profitability analysis** of the client. This involved ensuring that a) certain intangible assets were appropriately valued in the context of an economic profitability analysis and b) the accounting value of tangible assets were uplifted appropriately in cases where these did not adequately represent the "replacement cost" or "Modern Equivalent Asset Value" of the assets.
+In particular, I worked with other members of the Competition team on responding to the CMA's **economic profitability analysis** of the client. This involved ensuring that a) certain intangible assets were appropriately valued in the context of an economic profitability analysis and b) the accounting value of tangible assets were uplifted appropriately in cases where these did not adequately represent the "replacement cost" or "Modern Equivalent Asset" value of the assets.
 
 I also worked on responding to the CMA's **entry analysis**, its econometric assessment of the impact of entry on incumbent volumes and prices.
 
 More recently, most of my time has been spent working on an abuse of dominance case before the Turkish Competition Authority, the Rekabet Kurumu. Along with other members of the Competition team, we have helped the client to respond to various Requests for Information. I have also been in charge of processing and analysing the underlying cost, pricing and revenue data in order to help the client assess internally whether there has been any wrongdoing.
 
 Whilst these projects have represented the most significant part of my work at NERA, I have had experience working on a variety of other merger, cartel and state aid cases. 
+</div>
 
-### Office for National Statistics, Summer Intern, Jun-Aug 2018 *(3 months)*
+<hr>
+
+<div class = "blue">
+
+<img src="/./cv_files/ONS.png" alt="" width="229.150" height="45px"/>
+
+### Office for National Statistics, Summer Intern 
+
+##### Jun-Aug 2018, *(3 months)*
 
 I worked in the Prices Platform Development and Support team of the Economic Statistics Change and Support division. I helped to prepare historical CPI and
 RPI data to be inputted into the new data storage system for the Prices division.
@@ -30,9 +49,19 @@ RPI data to be inputted into the new data storage system for the Prices division
 I also produced a report with two others on the variation in response/drop-off 
 rates by demographic for the Opinions and Lifestyle Survey pilot and presented the findings to senior management. This involved data work with large datasets in SPSS.
 
+</div>
+
+<hr>
+
 ## Education
 
-### MSc Economics, University College London, *Distinction*, 2018-2019  
+<div class = "blue">
+
+<img src="/./cv_files/1200px-University_College_London_logo.svg.png" alt="" width="153.409" height="45px"/>
+
+### MSc Economics, University College London, *Distinction*, 
+
+##### 2018-2019
 
 Alongside the core Economics modules, I took a number of optional topics in Microeconomics and Competition Economics. See grades attained in table below.
 
@@ -53,7 +82,17 @@ Advanced Microeconometrics | Optional | 72
 Empirical Industrial Organisation | Optional | 70
 Behavioural Economics | Optional | 68
 
-### BA History and Economics, Oxford University, *2:i*, 2015-2018
+</div>
+
+<hr>
+
+<div class = "blue">
+
+<img src="/./cv_files/default-logo.png" alt="" width="198px" height="60px"/>
+
+### BA History and Economics, Oxford University, *2:i*, 
+
+##### 2015-2018
 
 I took a variety of core and optional modules covering topics in History, 
 Economics and Economic History. In the latter years, I leaned towards Economics, with five out of my eight Final Degree examinations being in Economics.
@@ -63,25 +102,35 @@ dissertation was nominated as the University of Oxford's entry for the *History
 of Parliament Undergraduate Thesis Prize* - for the best undergraduate 
 dissertation relating to British and Irish parliamentary or political history pre-1997.
 
-### A-levels, British School of Brussels, 2013-2015
+</div>
 
-<br>
+<hr>
 
-Subject | Level | Grade
---------|------|------
-Mathematics | A-level | A\*
-Further Mathematics | A-level | A\*
-History | A-level | A
-French | AS-level | A
-Physics | AS-level | A
+<div class = "blue">
+
+<img src="/./cv_files/maxresdefault.jpg" alt="" width="156.75px" height="65px"/>
+
+### A-levels, British School of Brussels, 
+
+##### 2013-2015
+
+A-levels: 2 A\*s (Maths, Further Maths), 1 A (History).
+
+AS-levels: 2 As (History, French).
 
 Having grown up in Brussels, my French is fluent and this exam was not taken alongside the others but rather in 2012.
 
-### IGCSEs, British School of Brussels, 2011-2013
+### IGCSEs, British School of Brussels, 
+
+##### 2011-2013
 
 9 A\*s, 2 As and 1 B.  
 
 I took two French exams. One was for French as a native language (taken in 2013, grade A) and the other was the standard French as a foreign language exam (taken in 2011, grade A\*).
+
+</div>
+
+<hr>
 
 ## Skills
 
@@ -94,6 +143,8 @@ Being half-English, half-Italian and having grown up in Brussels, I am fluent in
 I am proficient in **Excel**, **Stata** and **R**. Though Excel is good for simple modelling and presentation of data and Stata is good for data analyses on a single dataset, I am always interested in developing my capabilities in R and other more powerful programming languages. In exploring the capabilities of other programming languages, I have for example come across the R `blogdown` package, which I have used to create this website (without any need for knowledge of HTML - the standard language used for constructing web pages). 
 
 My capabilities in **Python** at the moment are not as developed as in the other programmes, though I hope to devote time to developing this skill further.
+
+<hr>
 
 ## Interests
 

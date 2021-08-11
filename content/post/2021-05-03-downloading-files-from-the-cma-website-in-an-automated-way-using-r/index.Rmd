@@ -11,11 +11,15 @@ tags:
   - cma
 ---
 
+<style>
+div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 1.5em; padding-right: 1em; padding-top: 0.25em; padding-bottom: 0.5em}
+</style>
+
 This post is slightly specific to my work. The Competition and Markets Authority ("CMA") will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.
 
 The code uses the [`rvest`](https://rvest.tidyverse.org/) package to scrape the CMA's website and the `utils` package to download the files.
 
-```
+```{r eval = FALSE}
 rm(list = ls())
 
 library(rvest)
@@ -85,11 +89,8 @@ xml_child(webpage_html, 2)
 
 The next step is finding the documents we want to download within those 15 lines of code. But first let's take a step back.
 
-</br>
-<style>
-div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 0.5px; padding-bottom: 30px}
-</style>
 <div class = "blue">
+
 ### HTML elements/attributes and CSS selectors
 
 HTML pages are made up of **elements**. These elements will typically include an opening tag and a closing tag. If you inspect the HTML of this text (do it!), you will see that it is a paragraph, denoted by an opening tag `<p>` and a closing tag `</p>`.
@@ -133,10 +134,6 @@ It might be worth taking another step back though. How do you go about finding t
 
 Although you can work it out yourself, a much simpler way to find the right CSS selector for basic scraping tasks is to use a helpful tool called CSS SelectorGadget.
 
-</br>
-<style>
-div.blue { border-left: 6px solid #002e63; background-color:#eef3fa; padding-left: 30px; padding-right: 20px; padding-top: 0.5px; padding-bottom: 30px}
-</style>
 <div class = "blue">
 ### CSS SelectorGadget
 
@@ -195,3 +192,5 @@ And one final point. The code above is not actually my original code. It has bee
 
 - The link to the CMA's case page (the first line in step 1)
 - The particular section of the case page (the second line of step 2)
+
+Oh, and one final point- there are browser extensions that will do this as well. But that's way less fun!

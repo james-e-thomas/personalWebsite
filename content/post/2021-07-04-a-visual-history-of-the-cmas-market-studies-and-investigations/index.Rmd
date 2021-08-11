@@ -1,0 +1,160 @@
+---
+title: A visual history of the CMA's market studies and investigations
+author: ''
+date: '2021-07-04'
+slug: a-visual-history-of-the-cmas-market-studies-and-investigations
+categories: []
+tags: []
+---
+
+*Disclaimer: the figure will not look good on mobiles/small screens.*
+
+The [Competition and Markets Authority ("CMA")](https://en.wikipedia.org/wiki/Competition_and_Markets_Authority) carries out **[market studies and investigations](https://www.gov.uk/topic/competition/markets)** to make sure that particular markets are operating well.
+
+Using data from the CMA's website, I have compiled the figure below. It shows all the 'markets' cases listed on the website (aside from one which did not appear to have an obvious start date). 
+
+For more recent cases, market studies that became investigations are shown as one bar (as there is only one CMA case page). For older cases, the initial [Office of Fair Trading ("OFT")](https://en.wikipedia.org/wiki/Office_of_Fair_Trading) review and subsequent [Competition Commission ("CC")](https://en.wikipedia.org/wiki/Competition_Commission) investigation appear as separate bars (because there are separate case pages on the CMA's website). **The annotations can be clicked to go to each case page**. 
+
+The bars are coloured by the market sector being investigated (e.g. financial services). Some studies/investigations overlap market sectors (e.g. the online platforms and digital advertising market study falls under 'communications' and 'recreation and leisure'). Each unique combination is given a different colour. The sectors are listed below:
+
+<span style="color: #469990;">**- Building and construction**</span>
+<span style="color: #339900;">**- Communications**</span>
+<span style="color: #e8e8e8;">**- Communications, Electronics, Recreation and leisure**</span>
+<span style="color: #8f939f;">**- Communications, Financial services, Recreation and leisure, Utilities**</span>
+<span style="color: #002e63;">**- Communications, Recreation and leisure**</span>
+<span style="color: #cc0000;">**- Distribution and service industries**</span>
+<span style="color: #ffcc00;">**- Energy**</span>
+<span style="color: #ffdf97;">**- Energy, Utilities**</span>
+<span style="color: #0056a6;">**- Financial services**</span>
+<span style="color: #b2c7e2;">**- Financial services, Telecommunications**</span>
+<span style="color: #d28a7c;">**- Healthcare and medical equipment**</span>
+<span style="color: #fabed4;">**- Healthcare and medical equipment, Public markets**</span>
+<span style="color: #f7c088;">**- Oil and gas refining and petrochemicals**</span>
+<span style="color: #7a0c19;">**- Pharmaceuticals**</span>
+<span style="color: #425563;">**- Public markets**</span>
+<span style="color: #be941b;">**- Retail and wholesale**</span>
+<span style="color: #000000;">**- Telecommunications**</span>
+<span style="color: #ff9900;">**- Transport**</span>
+<span style="color: #aeca95;">**- Various**</span>
+
+Last updated: 4 July 2021
+
+The underlying data used can be found [here](https://github.com/james-e-thomas/market_investigations_data/blob/main/market%20investigations.RData). The R code for downloading the data from the CMA website, and plotting the graph can be found [here](https://github.com/james-e-thomas/market_investigations_data/blob/main/Downloading%20market%20investigation%20data%20and%20plotting%20figure.R).
+
+<style>
+div.graph {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+</style>
+
+<div class = "graph">
+
+```{r echo = FALSE, warning = FALSE, message = FALSE, out.width='95%', out.height='100%'}
+
+library(plotly)
+library(lubridate)
+
+githubURL <- "https://github.com/james-e-thomas/market_investigations_data/raw/main/market%20investigations.RData"
+load(url(githubURL))
+
+
+nera <- c('#469990', '#339900', '#e8e8e8', '#8f939f', '#002e63', '#cc0000',
+          '#ffcc00', '#ffdf97', '#0056a6', '#b2c7e2', '#d28a7c', '#fabed4',
+          '#f7c088', '#7a0c19', '#425563', '#be941b', '#000000', '#ff9900',
+          '#aeca95')
+
+fig <- plot_ly() %>%
+  config(displayModeBar = FALSE) %>%
+  layout(yaxis = list(showline = F,
+                      showticklabels = F,
+                      showgrid = F,
+                      range = c(1, nrow(master$Case) - 1),
+                      fixedrange = T),
+         xaxis = list(#type = "date",
+                      tickformat = "%Y",
+                      dtick = "M12",
+                      range = c(as.Date("2001-10-01"), today()),
+                      fixedrange = T),
+         shapes = list(type = "line",
+                       x0 = as.Date("2014-04-01"), x1 = as.Date("2014-04-01"),
+                       y0 = 0, y1 = nrow(master),
+                       line = list(color = "#74a1ce",
+                                   dash = "dot")),
+         font = list(family = "Verdana",
+                     color = "#425563")) %>%
+  add_annotations(x = as.Date("2014-05-01"),
+                  y = nrow(master)-2,
+                  text = "CMA takes over <br>from OFT/CC",
+                  align = "left",
+                  xref = "x",
+                  yref = "y",
+                  xanchor = "left",
+                  showarrow = F,
+                  font = list(size = 10,
+                              color = "#74a1ce"))
+
+for(i in 1:nrow(filter(master, Opened > as.Date("2017-06-01")))){
+  fig <- add_trace(fig,
+                   type = "scatter",
+                   x = c(master$Opened[i], master$Closed[i]),  # x0, x1
+                   y = c(i, i),  # y0, y1
+                   mode = "lines",
+                   color = master$"Market sector"[i],
+                   colors = nera,
+                   line = list(width = 5),
+                   showlegend = F,
+                   texttemplate = master$Case[i],
+                   textposition = "outside",
+                   hoverinfo = "text",
+                   text = paste(paste("<b>", master$Case[i], "</b>"), "<br>",
+                                master$"Market sector"[i])
+  ) %>%
+    add_annotations(x = master$Opened[i],
+                    y = i,
+                    text = master$Label[i],
+                    xref = "x",
+                    yref = "y",
+                    xanchor = "right",
+                    showarrow = F,
+                    font = list(size = 7))
+
+}
+
+for(i in (nrow(filter(master, Opened > as.Date("2017-06-01")))+1):(nrow(master) - 1)){
+  fig <- add_trace(fig,
+                   type = "scatter",
+                   x = c(master$Opened[i], master$Closed[i]),  # x0, x1
+                   y = c(i, i),  # y0, y1
+                   mode = "lines",
+                   color = master$"Market sector"[i],
+                   colors = nera,
+                   line = list(width = 5),
+                   showlegend = F,
+                   texttemplate = master$Case[i],
+                   textposition = "outside",
+                   hoverinfo = "text",
+                   text = paste(paste("<b>", master$Case[i], "</b>"), "<br>",
+                                master$"Market sector"[i])
+  ) %>%
+    add_annotations(x = master$Closed[i],
+                    y = i,
+                    text = master$Label[i],
+                    xref = "x",
+                    yref = "y",
+                    xanchor = "left",
+                    showarrow = F,
+                    font = list(size = 7))
+
+}
+
+fig
+```
+
+</div>
+
