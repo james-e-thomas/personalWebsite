@@ -1,0 +1,42 @@
+---
+title: What is a regression? An explanation for non-economists
+author: ''
+date: '2021-06-19'
+slug: what-is-a-regression-an-explanation-for-non-economists
+categories: []
+tags: []
+---
+
+In my line of work - and economics more generally - regression models are common. But without training in economics or statistics, understanding the regression outputs of say, a competition authority, can be complicated. This short note tries to break things down as simply as possible: 
+
+  (a) what a regression is; and 
+  (b) how regressions should be interpreted. 
+
+Alternatively, there is another valid approach which is ignoring this post, overlooking anything that looks like it contains confusing numbers and hoping that the authority has done a good job with the explanatory text!
+
+## What is a regression?
+
+A regression model is a statistical model that estimates the relationship between an 'outcome' variable (e.g. price) and 'predictor' variable(s) (e.g. cost or the presence of a cartel). It seeks to assess the impact of a change in cost or the presence of a cartel on the price of a good.
+
+<iframe src="https://www.desmos.com/calculator/t6qr5l7sql?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
+
+<style>
+div.graph {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+</style>
+
+<div class = "graph">
+
+```{r}
+
+```
+
+</div>
