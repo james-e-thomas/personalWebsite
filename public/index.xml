@@ -6,7 +6,16 @@
     <description>Recent content on James Thomas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hosting Shiny App on Google Cloud</title>
+      <link>/2021/08/11/hosting-shiny-app-on-google-cloud/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/08/11/hosting-shiny-app-on-google-cloud/</guid>
+      <description>The easiest way of hosting your Shiny App is on shinyapps.io. It’s simple and easy- all you need to do is set up an account and run a few lines from the R console. The downside is that it can be a bit pricey if it’s not just for personal use. In my case there is also the fact that if I want to embed my Shiny App within a static website (which admittedly is a bit of a hack, but it is difficult for me to build the full website using `shiny’ for various reasons), the Shiny App would sdf</description>
+    </item>
+    
     <item>
       <title>Data manipulation in Stata: Reshape command</title>
       <link>/2021/07/24/data-manipulation-in-stata-reshape-command/</link>
