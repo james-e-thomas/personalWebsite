@@ -16,8 +16,6 @@ menu:
   main:
     - name: About
       url: /about/
-    - name: CV
-      url: /cv/
     - name: LinkedIn
       url: https://www.linkedin.com/in/jamese-thomas/
     - name: GitHub

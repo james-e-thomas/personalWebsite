@@ -1,0 +1,3 @@
+
+	I have removed the CV page and saved it in the main directory. 
+	If I want to reintegrate it back in, I need amend the yaml file.
