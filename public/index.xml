@@ -6,16 +6,7 @@
     <description>Recent content on James Thomas</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Hosting Shiny App on Google Cloud</title>
-      <link>/2021/08/11/hosting-shiny-app-on-google-cloud/</link>
-      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/2021/08/11/hosting-shiny-app-on-google-cloud/</guid>
-      <description>The easiest way of hosting your Shiny App is on shinyapps.io. It’s simple and easy- all you need to do is set up an account and run a few lines from the R console. The downside is that it can be a bit pricey if it’s not just for personal use. In my case there is also the fact that if I want to embed my Shiny App within a static website (which admittedly is a bit of a hack, but it is difficult for me to build the full website using `shiny’ for various reasons), the Shiny App would sdf</description>
-    </item>
-    
+    <lastBuildDate>Sat, 24 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data manipulation in Stata: Reshape command</title>
       <link>/2021/07/24/data-manipulation-in-stata-reshape-command/</link>
@@ -77,18 +68,8 @@ This is done using:
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>13/05/2021 I am currently working in NERA Economic Consulting&amp;rsquo;s Antitrust and Competition Practice in London. I have worked on a variety of interesting competition cases across a range of industries and jurisdictions (see my CV for more detail).
+      <description>13/05/2022 I am currently working in NERA Economic Consulting&amp;rsquo;s Antitrust and Competition Practice in London. See my LinkedIn if you&amp;rsquo;re nosy.
 This site is mainly a place for me to keep track of various bits I have worked on and may want to look back on at some point (or share with others when potentially helpful).</description>
-    </item>
-    
-    <item>
-      <title>Curriculum Vitae</title>
-      <link>/cv/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/cv/</guid>
-      <description>div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 30px; padding-right: 20px; padding-top: 30px; padding-bottom: 20px}13/05/2021 Experience NERA Economic Consulting, Research Officer Oct 2019-Present, (1 year, 7 months) I am currently working in NERA&amp;rsquo;s Antitrust and Competition Practice in London. My experience includes working on a variety of market investigation, merger, cartel, abuse of dominance and state aid cases across a range of industries and jurisdictions.
-During my first year at NERA, I spent a lot of time working on a market investigation before the Competition and Markets Authority (&amp;ldquo;CMA&amp;rdquo;).</description>
     </item>
     
   </channel>
