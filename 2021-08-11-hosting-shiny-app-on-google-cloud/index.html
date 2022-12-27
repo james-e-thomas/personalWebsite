@@ -1,0 +1,98 @@
+---
+title: Hosting a Shiny App on Google Cloud
+author: ''
+date: '2021-08-11'
+slug: hosting-a-shiny-app-on-google-cloud
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>There are various <a href="https://medium.com/@akpradhn/how-to-deploy-a-shiny-app-at-zero-cost-94e8897df34d">options for deploying a Shiny App</a>.</p>
+<p>The most straightforward way of hosting your Shiny App is on <a href="https://www.shinyapps.io/">shinyapps.io</a>. All you need to do is set up an account and run a few lines of code from the R console.</p>
+<p>The downside is that it can be a bit pricey if it’s not just for personal use / free tier doesn’t quite cut it for your level of usage.</p>
+<p>In my case there is also the fact that I want to embed my Shiny App within a static website (which wouldn’t be hosted on shinyapps.io) using an iframe. This is a bit of a hack, but it’s difficult for me to build the full website using <code>shiny</code> for various reasons. Embedding my app in this way and hosting on shinyapps.io can then have some undesirable consequences unless I am willing (which I am not) to shell out for the professional plan which comes with custom domains. These consequences could for example be that Google thinks you are trying to monetise a third party’s application and so doesn’t let you place ads on the static part of the website.</p>
+<p>This post documents how to host a Shiny App on the Google Cloud. This won’t be the most comprehensive guide in the world (as the main purpose of this post is to bail out future me should he need some help when repeating the process with a new Shiny App), but I will try to provide links to plug any obvious gaps.</p>
+<p>Right. So I am by no means an expert on these things, but I gather its <a href="https://www.r-bloggers.com/2021/05/dockerizing-shiny-applications/">good practice</a> to ‘dockerize’ a Shiny App first and then pull the docker image into something like Google’s Cloud Run. So let’s do that.</p>
+<p>PS: I thought <a href="https://www.charlesbordet.com/en/guide-shiny-aws/#1-create-a-shiny-app">this</a> guide by Charles Bordet was good for directly hosting an app on AWS using <a href="https://shiny.rstudio.com/articles/shiny-server.html">Shiny Server</a> (i.e. without dockerizing the app first).</p>
+<div id="dockerizing-a-shiny-app" class="section level1">
+<h1>Dockerizing a Shiny App</h1>
+<p>I used the following <a href="https://blog.sellorm.com/2021/04/25/shiny-app-in-docker/">guide</a> by Mark Sellors to build and run a docker image. It works through everything needed and is fairly self-explanatory. Docker needs to be <a href="https://www.docker.com/get-started">installed</a> of course.</p>
+<p>It works through everything using <a href="https://github.com/sellorm/shiny-app-docker">his own demo project</a>, which is based off the <a href="https://hub.docker.com/r/rocker/shiny">rocker project’s base shiny image</a> (files <a href="https://github.com/rocker-org/shiny">here</a>). When following the instructions, make sure that you clone <em>his</em> demo project (rather than the one his is based off) and then <code>build</code> the image. Cloning the original files and then building the image threw up an error for me.</p>
+<p>So download his project files and replace his app with yours. I illustrate a few extensions that require a few additions / tweaks to the dockerfile.</p>
+<div id="installing-packages-from-github" class="section level4">
+<h4>Installing packages from Github</h4>
+<p>In order to use packages from GitHub, an additional line is needed (after the code for installing CRAN packages). Here it is (of course devtools needs to be one of the CRAN packages you just installed…):</p>
+<pre class="r"><code>RUN R -e &quot;devtools::install_github(&#39;trestletech/shinyStore&#39;)&quot;</code></pre>
+</div>
+<div id="custom-styling-using-css" class="section level4">
+<h4>Custom styling using CSS</h4>
+<p>Another extension that I needed was custom CSS styling (the following also applies if you have images to add or anything you need to use a <code>www</code> folder for). Assuming you have a <code>www</code> folder with a CSS file in it, you need to remove the asterisk from the following line in the dockerfile:</p>
+<pre class="r"><code>COPY ./shiny-app/* /srv/shiny-server/</code></pre>
+<p>Which gives instead:</p>
+<pre class="r"><code>COPY ./shiny-app/ /srv/shiny-server/</code></pre>
+<p>Doing this ensures that everything inside the <code>shiny-app</code> folder is copied to the Docker image.</p>
+<p>My final dockerfile looks like this (of course, you should install the packages that you want; and you may want to specify a different version of R or pin the packages to a different date):</p>
+<pre class="r"><code># Example shiny app docker file
+# https://blog.sellorm.com/2021/04/25/shiny-app-in-docker/
+
+# get shiny serveR and a version of R from the rocker project
+FROM rocker/shiny:4.1.1
+
+# system libraries
+# Try to only install system libraries you actually need
+# Package Manager is a good resource to help discover system deps
+RUN apt-get update &amp;&amp; apt-get install -y \
+    libcurl4-gnutls-dev \
+    libssl-dev
+  
+# install R packages required 
+# Change the packages list to suit your needs
+RUN R -e &#39;install.packages(c(\
+              &quot;shiny&quot;, \
+              &quot;dplyr&quot;, \
+              &quot;plotly&quot;, \
+              &quot;DT&quot;, \
+              &quot;shinycssloaders&quot;, \
+              &quot;tidyr&quot;, \
+              &quot;RJSONIO&quot;, \
+              &quot;sysfonts&quot;, \
+              &quot;shinyjs&quot;, \
+              &quot;miniUI&quot;, \
+              &quot;devtools&quot; \
+            ), \
+            repos=&quot;https://packagemanager.rstudio.com/cran/__linux__/focal/2021-08-10&quot;\
+          )&#39;
+
+# Install github packages required
+RUN R -e &quot;devtools::install_github(&#39;trestletech/shinyStore&#39;)&quot;
+
+# copy the app directory into the image
+COPY ./shiny-app/ /srv/shiny-server/
+
+# run app
+CMD [&quot;/usr/bin/shiny-server&quot;]</code></pre>
+</div>
+</div>
+<div id="hosting-dockerized-shiny-app-on-google-cloud" class="section level1">
+<h1>Hosting dockerized Shiny App on Google Cloud</h1>
+<div id="pushing-the-image-to-the-docker-hub" class="section level4">
+<h4>Pushing the image to the Docker Hub</h4>
+<p>The next step in hosting your app on Google Cloud is pushing your image to a repository. This can be pushed to the Google container registry, but I push mine to the Docker Hub (for no particular reason).</p>
+<p>This process is fairly simple and is well <a href="https://www.youtube.com/watch?v=iqqDU2crIEQ&amp;t=1002s">explained by Docker in this Youtube video</a>.</p>
+<p>But in essence, once you have a docker account (with username <code>username</code> say) and an image (called <code>image_name</code> say), you need to create a repository (also called <code>image_name</code>) and tag your image by running the following command:</p>
+<pre class="r"><code>docker tag image_name username/image_name</code></pre>
+<p>If you run the following, you will see that there are now two images, and one of these now matches your repository on the Docker Hub:</p>
+<pre class="r"><code>docker images</code></pre>
+<p>You then simply push the image to the Docker Hub:</p>
+<pre class="r"><code>docker push username/image_name</code></pre>
+</div>
+<div id="creating-your-virtual-machine" class="section level4">
+<h4>Creating your virtual machine</h4>
+<p>Once your docker image is on the Docker Hub, you then need to create a virtual instance on Google Cloud. Simply set up an account, then go to the <a href="https://console.cloud.google.com/compute/instances">VM instances</a> page and click on ‘Create Instance’.</p>
+<p>Select the VM you want (e.g. one of the ‘Free tier’ ones). Under ‘Container’, select ‘Deploy contained image’ and link to your container image.</p>
+<p>Once your instance has been created, click on the ‘More actions’ dots and select ‘View network details’. Then on the sidebar click on ‘Firewall’ and click on ‘Create firewall rule’. Give the rule a name (e.g. ‘rshiny’). Under ‘Targets’, select ‘Specified service account’. Under ‘Source IP ranges’, type ‘0.0.0.0/0’. Under ‘Protocols and ports’, tick ‘tcp’ and type ‘3838’.</p>
+</div>
+</div>
