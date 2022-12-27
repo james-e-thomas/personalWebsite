@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on James Thomas</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on James Thomas</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data manipulation in Stata: Reshape command</title>
+      <link>/2021/07/24/data-manipulation-in-stata-reshape-command/</link>
+      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/07/24/data-manipulation-in-stata-reshape-command/</guid>
+      <description>Stata help files are great, but they could sometimes do with a bit more colour!
+The Stata reshape help file can be found here.
+To open the pdf below in its own page click here.
+
+div.pdf {height: 100vh;width: 90vw;position: relative;left: 50%;right: 50%;margin-left: -45vw;margin-right: -50vw;}</description>
+    </item>
+    
+    <item>
+      <title>Regular expressions in Stata cheat sheet</title>
+      <link>/2021/07/24/regular-expressions-in-stata-cheat-sheet/</link>
+      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/07/24/regular-expressions-in-stata-cheat-sheet/</guid>
+      <description>The cheat sheet below is based off this great cheat sheet for regular expressions in R by Ian Kopacka.
+This is not supposed to be used as an introduction to regular expressions (have a look at the relevant help files and some of the materials shared below for this).
+This is also not a complete set of anchors, characters etc for matching, but those shown should be sufficient for most tasks (certainly for what I do at least!</description>
+    </item>
+    
+    <item>
+      <title>A visual history of the CMA&#39;s market studies and investigations</title>
+      <link>/2021/07/04/a-visual-history-of-the-cmas-market-studies-and-investigations/</link>
+      <pubDate>Sun, 04 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/07/04/a-visual-history-of-the-cmas-market-studies-and-investigations/</guid>
+      <description>Disclaimer: the figure will not look good on mobiles/small screens.
+The Competition and Markets Authority (“CMA”) carries out market studies and investigations to make sure that particular markets are operating well.
+Using data from the CMA’s website, I have compiled the figure below. It shows all the ‘markets’ cases listed on the website (aside from one which did not appear to have an obvious start date).</description>
+    </item>
+    
+    <item>
+      <title>Downloading files from the CMA website in an automated way using R</title>
+      <link>/2021/05/03/downloading-files-from-the-cma-website-in-an-automated-way-using-r/</link>
+      <pubDate>Mon, 03 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/05/03/downloading-files-from-the-cma-website-in-an-automated-way-using-r/</guid>
+      <description>div.blue { border: 0.1em solid #e0dff3; background-color:#f0f4f9; padding-left: 1.5em; padding-right: 1em; padding-top: 0.25em; padding-bottom: 0.5em}This post is slightly specific to my work. The Competition and Markets Authority (“CMA”) will often publish documents at various points during its cases. I was prompted to write this short piece of code to automate the downloading of these documents when the CMA published 80+ responses from stakeholders to a particular set of working papers.</description>
+    </item>
+    
+    <item>
+      <title>Calculating drive times in Stata using the osrmtime command</title>
+      <link>/2021/03/14/calculating-drive-times-in-stata-using-the-osrmtime-command/</link>
+      <pubDate>Sun, 14 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/03/14/calculating-drive-times-in-stata-using-the-osrmtime-command/</guid>
+      <description>This post walks through the (somewhat fiddly) installation and usage of the osrmtime command. It is a Stata command for calculating distances and travel times between two sets of GPS coordinates on a map.
+This is done using:
+OpenStreetMaps for your map (which you are required to download before running the command such that everything works totally offline)the Open Source Routing Machine (“OSRM”) to determine the shortest distance between A and BIf you have the time to spare, I would read the osrmtime author guide (it’s only 7 pages), but if not, this post is self-contained.</description>
+    </item>
+    
+  </channel>
+</rss>
